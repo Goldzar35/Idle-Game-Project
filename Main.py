@@ -89,6 +89,9 @@ while running:
         if game_state.current_menu in menus and hasattr(menus[game_state.current_menu], "handle_scavenge_event"):
             menus[game_state.current_menu].handle_scavenge_event(event)
 
+    # Update scavenge logic
+    if game_state.current_menu == 3:  
+        menus[game_state.current_menu].scavenging.scavenging()
     # Draw the sidebar background
     pygame.draw.rect(screen, (30, 30, 30), (0, 0, 200, 800))  # Sidebar background
     
