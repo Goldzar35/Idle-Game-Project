@@ -4,6 +4,7 @@ import pygame
 from Entities.Player import Player
 from Entities.Button import Button
 from Entities.Scavenging import Scavenging
+from Entities.GameState import GameState
 
 # From Menus
 from Menus.Core.DefaultMenu import DefaultMenu
@@ -25,6 +26,9 @@ player = Player()
 pygame.init()
 screen = pygame.display.set_mode((1100, 800)) # Screen size
 screen.fill((40, 40, 40)) # Dark gray for the background color
+
+# Initialize GameState
+game_state = GameState()
 
 # Sidebar size and demension
 sidebar_width = 200
@@ -66,9 +70,6 @@ menus = {
     11: LegacyMenu(player)
 }
 
-# Defualt menu state
-current_menu = 0 # 0 for menu 1, 1 for menu 2...
-
 running = True
 while running:
     for event in pygame.event.get():
@@ -82,18 +83,18 @@ while running:
             # Handle sidebar button clicks
             for btn in sidebar_buttons:
                 if btn.is_clicked((mouse_x, mouse_y)):
-                    current_menu = btn.action  # Switch to the menu associated with the button
+                    game_state.current_menu = btn.action  # Switch to the menu associated with the button
 
         # For Scavenging
-        if current_menu in menus and hasattr(menus[current_menu], "handle_scavenge_event"):
-            menus[current_menu].handle_scavenge_event(event)
+        if game_state.current_menu in menus and hasattr(menus[game_state.current_menu], "handle_scavenge_event"):
+            menus[game_state.current_menu].handle_scavenge_event(event)
 
     # Draw the sidebar background
     pygame.draw.rect(screen, (30, 30, 30), (0, 0, 200, 800))  # Sidebar background
     
     # Draw the current menu background
-    if current_menu in menus and hasattr(menus[current_menu], "draw"):
-        menus[current_menu].draw(screen)
+    if game_state.current_menu in menus and hasattr(menus[game_state.current_menu], "draw"):
+        menus[game_state.current_menu].draw(screen)
 
     # Draw the buttons
     for i, btn in enumerate(sidebar_buttons):
