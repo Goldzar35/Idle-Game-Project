@@ -6,4 +6,4 @@ class HuntingMenu:
         pass
 
     def draw(self, screen):
-        screen.fill((90, 90, 90)) # Background color for Hunting Menu
+        screen.fill((90, 90, 90))

@@ -7,12 +7,16 @@ This is an idle game inspired by Melvor Idle, it is my first main project. Coded
 
 # Features
 -Menu Select
--Scavenging Button
+-Customizable Button's
+-Temp Inventory
+-Scavenging 
+    A toggle to gather a group of resources
 
 # Project Structure
 The Project is organized into these main folders
     -Entities
         Button
+        GameState
         Player
         Scavenging
     -Menus
@@ -30,3 +34,6 @@ The Project is organized into these main folders
             LegacyMenu
             MedicineMenu
             ScavengingMenu
+    .gitnore
+    Main
+    README

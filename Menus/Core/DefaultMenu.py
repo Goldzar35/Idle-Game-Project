@@ -6,4 +6,4 @@ class DefaultMenu:
         pass
 
     def draw(self, screen):
-        screen.fill((40, 40, 40))  # Background color of Default Menu
+        screen.fill((40, 40, 40))  

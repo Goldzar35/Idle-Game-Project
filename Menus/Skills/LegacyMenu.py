@@ -6,5 +6,5 @@ class LegacyMenu:
         pass
 
     def draw(self, screen):
-        screen.fill((150, 150, 150)) # Background color of Legacy Menu
+        screen.fill((150, 150, 150)) 
  

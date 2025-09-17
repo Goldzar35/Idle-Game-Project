@@ -13,4 +13,5 @@ class Button:
         screen.blit(text_surf, text_rect)
 
     def is_clicked(self, mouse_pos):
+        # Detects mouse click
         return self.rect.collidepoint(mouse_pos)

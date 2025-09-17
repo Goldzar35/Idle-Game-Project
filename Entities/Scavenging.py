@@ -1,6 +1,8 @@
 import pygame
 import random
 import time 
+
+# From Entities
 from Entities.Player import Player
 
 class Scavenging:
@@ -11,7 +13,7 @@ class Scavenging:
         self.is_scavenging = False
         # Scavenging per second
         self.scavenge_time = 0
-        # Items list would go here
+        # Items list with probabilities
         self.items = {
             "wood": .5,
             "stone": .3,
@@ -25,16 +27,23 @@ class Scavenging:
         print(f"Scavenging {'started' if self.is_scavenging else 'stopped'}")
 
     def scavenging(self):
+        # Time check between scavenging actions
         current_time = time.time()
+        # RNG element
         if self.is_scavenging and current_time - self.scavenge_time >= 0.5:
             self.scavenge_time = current_time
-            rand = random.uniform(0, 1)  # Generate a random number between 0 and 1
+            rand = random.uniform(0, 1) 
+            # Compares random nummber to probabilitties of items
             cumulative_probability = 0
 
             # Scavenging loop logic
             for item, chance in self.items.items():
+                # Creates ranges for each items
                 cumulative_probability += chance
                 if rand < cumulative_probability:
+                    # Adds to inventory
                     self.player.add_inventory(item, 1)
+                    # Temp debugging line
                     print(f"Found 1 {item}")
+                    # Ressets loop to start
                     break

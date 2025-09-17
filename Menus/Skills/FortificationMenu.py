@@ -6,4 +6,4 @@ class FortificationMenu:
         pass
 
     def draw(self, screen):
-        screen.fill((130, 130, 130)) # Background color for Fortification Menu
+        screen.fill((130, 130, 130)) 

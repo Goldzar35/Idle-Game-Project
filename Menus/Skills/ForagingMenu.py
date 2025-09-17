@@ -6,4 +6,4 @@ class ForagingMenu:
         pass
     
     def draw(self, screen):
-        screen.fill((80, 80, 80)) # Background color for the foraging menu
+        screen.fill((80, 80, 80)) 

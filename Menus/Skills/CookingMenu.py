@@ -6,4 +6,4 @@ class CookingMenu:
         pass
 
     def draw(self, screen):
-        screen.fill((120, 120, 120)) # Background color of Cooking Menu
+        screen.fill((120, 120, 120)) 

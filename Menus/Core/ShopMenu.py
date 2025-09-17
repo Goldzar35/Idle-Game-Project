@@ -6,4 +6,4 @@ class ShopMenu:
         pass
 
     def draw(self, screen):
-        screen.fill((60, 60, 60)) # Background color for the shop menu
+        screen.fill((60, 60, 60)) 

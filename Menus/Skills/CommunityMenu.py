@@ -6,4 +6,4 @@ class CommunityMenu:
         pass
 
     def draw(self, screen):
-        screen.fill((140, 140, 140))  # Background color of Community Menu
+        screen.fill((140, 140, 140))  

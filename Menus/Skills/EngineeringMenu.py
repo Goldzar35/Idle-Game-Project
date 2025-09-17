@@ -6,4 +6,4 @@ class EngineeringMenu:
         pass
 
     def draw(self, screen):
-        screen.fill((100, 100, 100)) # Background color for Engineering Menu
+        screen.fill((100, 100, 100)) 

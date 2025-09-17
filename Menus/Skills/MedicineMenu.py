@@ -6,4 +6,4 @@ class MedicineMenu:
         pass
 
     def draw(self, screen):
-        screen.fill((110, 110, 110))  # Background color for Medicine Menu
+        screen.fill((110, 110, 110))  

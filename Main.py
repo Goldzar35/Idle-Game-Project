@@ -23,14 +23,17 @@ from Menus.Skills.LegacyMenu import LegacyMenu
 # Initialize player
 player = Player()
 
+# Initialize pygame
 pygame.init()
-screen = pygame.display.set_mode((1100, 800)) # Screen size
-screen.fill((40, 40, 40)) # Dark gray for the background color
 
 # Initialize GameState
 game_state = GameState()
 
-# Sidebar size and demension
+# Base Display
+screen = pygame.display.set_mode((1100, 800)) 
+screen.fill((40, 40, 40)) 
+
+# Sidebar size and demension variables
 sidebar_width = 200
 sidebar_height = 800
 button_count = 12
@@ -38,21 +41,23 @@ button_height = 80
 gap = 10
 font = pygame.font.SysFont(None, 36)
 
+# Button names
 sidebar_buttons = []
 button_names = ["Default", "Inventory", "Shop", "Scavenging", "Foraging", "Hunting", "Engineering", "Medicine", "Cooking", "Fortification", "Community", "Legacy"]
 
-# Based off of i, it uses the button names and amount to make the buttons
+# Logic to spawn in buttons based off of button_names list
 for i, name in enumerate(button_names):
     y = gap + i * (button_height + gap)
-    btn = Button(0, y, sidebar_width, button_height, name, i)  # Action is the index for simplicity
+    # 0 is the x value, y value, sidebar_width, button_height, name, i determines button index
+    btn = Button(0, y, sidebar_width, button_height, name, i) 
+    # append adds a new button to the list
     sidebar_buttons.append(btn)
-
 
 # Calculate total height and max scroll
 total_height = button_count * button_height + (button_count + 1) * gap
 max_scroll = max(0, total_height - sidebar_height)
 scroll_offset = 0
-scroll_speed = 10  # Adjust scroll speed as needed
+scroll_speed = 10 
 
 # Add other Menu's here
 menus = {
@@ -70,6 +75,7 @@ menus = {
     11: LegacyMenu(player)
 }
 
+# Main game loop
 running = True
 while running:
     for event in pygame.event.get():
@@ -77,13 +83,14 @@ while running:
             running = False
         elif event.type == pygame.MOUSEWHEEL:
             scroll_offset -= event.y * scroll_speed
-            scroll_offset = max(0, min(scroll_offset, max_scroll))
-        elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # Left click
+            scroll_offset = max(0, min(scroll_offset, max_scroll)) 
+        elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1: 
             mouse_x, mouse_y = event.pos
             # Handle sidebar button clicks
             for btn in sidebar_buttons:
                 if btn.is_clicked((mouse_x, mouse_y)):
-                    game_state.current_menu = btn.action  # Switch to the menu associated with the button
+                    # Switch to selected menu
+                    game_state.current_menu = btn.action  
 
         # For Scavenging
         if game_state.current_menu in menus and hasattr(menus[game_state.current_menu], "handle_scavenge_event"):
@@ -93,7 +100,7 @@ while running:
     if game_state.current_menu == 3:  
         menus[game_state.current_menu].scavenging.scavenging()
     # Draw the sidebar background
-    pygame.draw.rect(screen, (30, 30, 30), (0, 0, 200, 800))  # Sidebar background
+    pygame.draw.rect(screen, (30, 30, 30), (0, 0, 200, 800)) 
     
     # Draw the current menu background
     if game_state.current_menu in menus and hasattr(menus[game_state.current_menu], "draw"):
@@ -108,7 +115,8 @@ while running:
         if -button_height < btn.rect.y < sidebar_height:
             btn.draw(screen, font)
 
-    pygame.display.flip()  # Updates the display
+    # Updates display
+    pygame.display.flip() 
 
 pygame.quit()
 
