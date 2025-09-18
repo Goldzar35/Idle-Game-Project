@@ -15,9 +15,17 @@ class Scavenging:
         self.scavenge_time = 0
         # Items list with probabilities
         self.items = {
-            "wood": .5,
-            "stone": .3,
-            "food": .2
+            "Gasoline": 1,    
+            "People": 10,         
+            "Batteries": 20,         
+            "Electronics": 30,   
+            "Spare Parts": 40,
+            "Nails": 50,         
+            "Metal Scrap": 60,    
+            "Rope": 70,   
+            "Fabric Scrap": 80,   
+            "Cement": 90,     
+            "Wood Planks": 100      
         }
     
     def toggle_scavenging(self):
@@ -32,18 +40,14 @@ class Scavenging:
         # RNG element
         if self.is_scavenging and current_time - self.scavenge_time >= 0.5:
             self.scavenge_time = current_time
-            rand = random.uniform(0, 1) 
-            # Compares random nummber to probabilitties of items
-            cumulative_probability = 0
-
+            rand = random.uniform(1, 100) 
             # Scavenging loop logic
             for item, chance in self.items.items():
                 # Creates ranges for each items
-                cumulative_probability += chance
-                if rand < cumulative_probability:
+                if rand <= chance:
                     # Adds to inventory
                     self.player.add_inventory(item, 1)
                     # Temp debugging line
                     print(f"Found 1 {item}")
-                    # Ressets loop to start
+                    # Resets loop to start
                     break

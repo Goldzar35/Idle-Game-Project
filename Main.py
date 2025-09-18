@@ -110,7 +110,6 @@ while running:
     for i, btn in enumerate(sidebar_buttons):
         # Adjust button position for scrolling
         btn.rect.y = gap + i * (button_height + gap) - scroll_offset
-
         # Only draw buttons that are visible in the sidebar
         if -button_height < btn.rect.y < sidebar_height:
             btn.draw(screen, font)

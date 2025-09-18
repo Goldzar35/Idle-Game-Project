@@ -4,9 +4,16 @@ class Player:
     def __init__(self):
         # Setting player attributes
         self.inventory = {
-            "wood": 0,
-            "stone": 0,
-            "food": 0
+            "Wood Planks": 0,
+            "Cement": 0,
+            "Rope": 0,
+            "Nails": 0,
+            "Scrap Metal": 0,
+            "Metal Scrap": 0,
+            "Electronics": 0,
+            "Fabric Scrap": 0,
+            "Spare Parts": 0,
+            "Gasoline": 0
         }
         
         self.scavenging = False
