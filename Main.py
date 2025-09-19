@@ -61,18 +61,18 @@ scroll_speed = 10
 
 # Add other Menu's here
 menus = {
-    0: DefaultMenu(player),
-    1: InventoryMenu(player),
-    2: ShopMenu(player),
-    3: ScavengingMenu(player),
-    4: ForagingMenu(player),
-    5: HuntingMenu(player),
-    6: EngineeringMenu(player),
-    7: MedicineMenu(player),
-    8: CookingMenu(player),
-    9: FortificationMenu(player),
-    10: CommunityMenu(player),
-    11: LegacyMenu(player)
+    0: DefaultMenu(game_state.player),
+    1: InventoryMenu(game_state.player),
+    2: ShopMenu(game_state.player),
+    3: ScavengingMenu(game_state.player, game_state),
+    4: ForagingMenu(game_state.player),
+    5: HuntingMenu(game_state.player),
+    6: EngineeringMenu(game_state.player),
+    7: MedicineMenu(game_state.player),
+    8: CookingMenu(game_state.player),
+    9: FortificationMenu(game_state.player),
+    10: CommunityMenu(game_state.player),
+    11: LegacyMenu(game_state.player)
 }
 
 # Main game loop
@@ -95,6 +95,9 @@ while running:
         # For Scavenging
         if game_state.current_menu in menus and hasattr(menus[game_state.current_menu], "handle_scavenge_event"):
             menus[game_state.current_menu].handle_scavenge_event(event)
+
+    # Update scavenging logic globally
+    game_state.update_scavenging()
 
     # Update scavenge logic
     if game_state.current_menu == 3:  

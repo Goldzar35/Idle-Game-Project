@@ -5,11 +5,12 @@ from Entities.Player import Player
 from Entities.Scavenging import *
 
 class ScavengingMenu:
-    def __init__(self, player):
+    def __init__(self, player, game_state):
         # Initialize anything specific to the Scavenging Menu here
         self.margin = 30
         self.sidebar_width = 200
         self.player = player
+        self.game_state = game_state 
         # Create an instance of Scavenging
         self.scavenging = Scavenging(player)  
 
@@ -31,7 +32,7 @@ class ScavengingMenu:
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  
             mouse_x, mouse_y = event.pos
             if self.scavenge_box.collidepoint(mouse_x, mouse_y):
-                self.scavenging.toggle_scavenging()
+                self.game_state.scavenging.toggle_scavenging()
 
 
 
