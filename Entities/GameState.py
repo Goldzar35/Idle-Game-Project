@@ -2,6 +2,8 @@ import pygame
 from Entities.Scavenging import Scavenging
 from Entities.Player import Player
 
+# Game state would save a reference of the plater, current states of the menuus to make saves.
+
 class GameState:
     def __init__(self):
         self.player = Player()

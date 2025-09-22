@@ -3,7 +3,6 @@ import pygame
 # From Entities
 from Entities.Player import Player
 from Entities.Button import Button
-from Entities.Scavenging import Scavenging
 from Entities.GameState import GameState
 
 # From Menus
@@ -29,16 +28,24 @@ pygame.init()
 # Initialize GameState
 game_state = GameState()
 
+# Initial window size
+info = pygame.display.Info()
+window_width, window_height = info.current_w, info.current_h
+
+# Minimum window size
+MIN_WIDTH = 800
+MIN_HEIGHT = 800
+
 # Base Display
-screen = pygame.display.set_mode((1100, 800)) 
-screen.fill((40, 40, 40)) 
+screen = pygame.display.set_mode((window_width, window_height), pygame.RESIZABLE)
+screen.fill((40, 40, 40))
 
 # Sidebar size and demension variables
-sidebar_width = 200
-sidebar_height = 800
+sidebar_width = int(0.2 * window_width)
+sidebar_height = window_height
 button_count = 12
-button_height = 80
-gap = 10
+button_height = int(0.1 * window_height)
+gap = int(0.01 * window_height)
 font = pygame.font.SysFont(None, 36)
 
 # Button names
@@ -57,14 +64,14 @@ for i, name in enumerate(button_names):
 total_height = button_count * button_height + (button_count + 1) * gap
 max_scroll = max(0, total_height - sidebar_height)
 scroll_offset = 0
-scroll_speed = 10 
+scroll_speed = 15 
 
 # Add other Menu's here
 menus = {
     0: DefaultMenu(game_state.player),
-    1: InventoryMenu(game_state.player),
+    1: InventoryMenu(game_state.player, sidebar_width),
     2: ShopMenu(game_state.player),
-    3: ScavengingMenu(game_state.player, game_state),
+    3: ScavengingMenu(game_state.player, game_state, sidebar_width, window_width, window_height),
     4: ForagingMenu(game_state.player),
     5: HuntingMenu(game_state.player),
     6: EngineeringMenu(game_state.player),
@@ -81,6 +88,29 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        elif event.type == pygame.VIDEORESIZE:
+            # Ensure minimum size
+            new_width = max(event.w, MIN_WIDTH)
+            new_height = max(event.h, MIN_HEIGHT)
+            # Update Screen Size
+            screen = pygame.display.set_mode((new_width, new_height), pygame.RESIZABLE)
+            window_width, window_height = new_width, new_height
+            # Sidebar and button dimensions
+            sidebar_width = int(0.2 * window_width)
+            sidebar_height = window_height
+            button_height = int(0.1 * window_height)
+            gap = int(0.01 * window_height)
+            # Recalculate height and max scroll
+            total_height = button_count * button_height + (button_count + 1) * gap
+            max_scroll = max(0, total_height - sidebar_height)
+            # Update button rects
+            for i, btn in enumerate(sidebar_buttons):
+                y = gap + i * (button_height + gap)
+                btn.rect = pygame.Rect(0, y, sidebar_width, button_height)
+        if game_state.current_menu == 3:
+            menus[3].update_dimensions(window_width, window_height)
+        if  game_state.current_menu == 1:
+            menus[1].update_dimensions(sidebar_width, window_height)
         elif event.type == pygame.MOUSEWHEEL:
             scroll_offset -= event.y * scroll_speed
             scroll_offset = max(0, min(scroll_offset, max_scroll)) 
@@ -99,9 +129,6 @@ while running:
     # Update scavenging logic globally
     game_state.update_scavenging()
 
-    # Update scavenge logic
-    if game_state.current_menu == 3:  
-        menus[game_state.current_menu].scavenging.scavenging()
     # Draw the sidebar background
     pygame.draw.rect(screen, (30, 30, 30), (0, 0, 200, 800)) 
     

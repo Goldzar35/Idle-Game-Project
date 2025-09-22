@@ -3,7 +3,7 @@ import random
 import time 
 
 # From Entities
-from Entities.Player import Player
+from Entities.Player import scavenge_tick 
 
 class Scavenging:
     def __init__(self, player):
@@ -38,7 +38,7 @@ class Scavenging:
         # Time check between scavenging actions
         current_time = time.time()
         # RNG element
-        if self.is_scavenging and current_time - self.scavenge_time >= 0.5:
+        if self.is_scavenging and current_time - self.scavenge_time >= scavenge_tick:
             self.scavenge_time = current_time
             rand = random.uniform(1, 100) 
             # Scavenging loop logic
