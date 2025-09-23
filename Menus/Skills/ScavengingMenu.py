@@ -34,7 +34,6 @@ class ScavengingMenu:
         self.box_height = int(0.4 * window_height)
         self.scavenge_box = pygame.Rect(self.box_x, self.box_y, self.box_width, self.box_height)
         
-    # When mouse clicks on button, toggle scavenging
     def handle_scavenge_event(self, event,):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  
             mouse_x, mouse_y = event.pos

@@ -52,7 +52,16 @@ font = pygame.font.SysFont(None, 36)
 sidebar_buttons = []
 button_names = ["Default", "Inventory", "Shop", "Scavenging", "Foraging", "Hunting", "Engineering", "Medicine", "Cooking", "Fortification", "Community", "Legacy"]
 
-# Logic to spawn in buttons based off of button_names list
+# Calculate total height and max scroll
+total_height = button_count * button_height + (button_count + 1) * gap
+max_scroll = max(0, total_height - sidebar_height)
+scroll_offset = 0
+scroll_speed = 15 
+
+# Draw the sidebar background
+pygame.draw.rect(screen, (30, 30, 30), (0, 0, 200, 800)) 
+
+# Initalize buttons
 for i, name in enumerate(button_names):
     y = gap + i * (button_height + gap)
     # 0 is the x value, y value, sidebar_width, button_height, name, i determines button index
@@ -60,11 +69,6 @@ for i, name in enumerate(button_names):
     # append adds a new button to the list
     sidebar_buttons.append(btn)
 
-# Calculate total height and max scroll
-total_height = button_count * button_height + (button_count + 1) * gap
-max_scroll = max(0, total_height - sidebar_height)
-scroll_offset = 0
-scroll_speed = 15 
 
 # Add other Menu's here
 menus = {
@@ -121,22 +125,18 @@ while running:
                 if btn.is_clicked((mouse_x, mouse_y)):
                     # Switch to selected menu
                     game_state.current_menu = btn.action  
-
         # For Scavenging
         if game_state.current_menu in menus and hasattr(menus[game_state.current_menu], "handle_scavenge_event"):
             menus[game_state.current_menu].handle_scavenge_event(event)
 
     # Update scavenging logic globally
     game_state.update_scavenging()
-
-    # Draw the sidebar background
-    pygame.draw.rect(screen, (30, 30, 30), (0, 0, 200, 800)) 
     
     # Draw the current menu background
     if game_state.current_menu in menus and hasattr(menus[game_state.current_menu], "draw"):
         menus[game_state.current_menu].draw(screen)
 
-    # Draw the buttons
+    # Update buttons
     for i, btn in enumerate(sidebar_buttons):
         # Adjust button position for scrolling
         btn.rect.y = gap + i * (button_height + gap) - scroll_offset
