@@ -11,13 +11,13 @@ class InventoryMenu:
         self.margin = 30
 
     def update_dimensions(self, sidebar_width, window_height):
-        self.sidebar_width = sidebar_width
-        self.margin = int(0.03 * window_height)  
-        
+        if sidebar_width != self.sidebar_width:
+            self.sidebar_width = sidebar_width
+        self.margin = int(0.03 * window_height)
+
     def draw(self, screen):
         screen.fill((50, 50, 50)) 
         font = pygame.font.Font(None, 36)
-
         y = self.margin
 
         # Temp inventory display logic

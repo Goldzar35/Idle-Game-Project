@@ -8,7 +8,7 @@ class ScavengingMenu:
     def __init__(self, player, game_state, sidebar_width, window_width, window_height):
         # Initialize anything specific to the Scavenging Menu here
         self.margin = 30
-        self.sidebar_width = 200
+        self.sidebar_width = sidebar_width
         self.player = player
         self.game_state = game_state 
         self.sidebar_width = sidebar_width

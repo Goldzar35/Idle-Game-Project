@@ -30,7 +30,7 @@ class Player:
             self.inventory[items] = quantity
 
     def remove_inventory(self, item, quantity):
-        if item in self.player.inventory and self.player.inventory[item] >= quantity:
+        if item in self.inventory and self.player.inventory[item] >= quantity:
             self.player.inventory[item] -= quantity
         else:
             pass
