@@ -28,11 +28,6 @@ class ScavengingMenu:
     def draw(self, screen):
         screen.fill((70, 70, 70))
         pygame.draw.rect(screen, (100, 100, 100), self.scavenge_box)  
-
-    def update_dimensions(self, window_width, window_height):
-        self.box_width = int(0.75 * window_width)
-        self.box_height = int(0.4 * window_height)
-        self.scavenge_box = pygame.Rect(self.box_x, self.box_y, self.box_width, self.box_height)
         
     def handle_scavenge_event(self, event,):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  
@@ -44,4 +39,3 @@ class ScavengingMenu:
 
 
 
-        

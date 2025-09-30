@@ -69,7 +69,6 @@ for i, name in enumerate(button_names):
     # append adds a new button to the list
     sidebar_buttons.append(btn)
 
-
 # Add other Menu's here
 menus = {
     0: DefaultMenu(game_state.player),
@@ -92,29 +91,6 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        elif event.type == pygame.VIDEORESIZE:
-            # Ensure minimum size
-            new_width = max(event.w, MIN_WIDTH)
-            new_height = max(event.h, MIN_HEIGHT)
-            # Update Screen Size
-            screen = pygame.display.set_mode((new_width, new_height), pygame.RESIZABLE)
-            window_width, window_height = new_width, new_height
-            # Sidebar and button dimensions
-            sidebar_width = int(0.2 * window_width)
-            sidebar_height = window_height
-            button_height = int(0.1 * window_height)
-            gap = int(0.01 * window_height)
-            # Recalculate height and max scroll
-            total_height = button_count * button_height + (button_count + 1) * gap
-            max_scroll = max(0, total_height - sidebar_height)
-            # Update button rects
-            for i, btn in enumerate(sidebar_buttons):
-                y = gap + i * (button_height + gap)
-                btn.rect = pygame.Rect(0, y, sidebar_width, button_height)
-        if game_state.current_menu == 3:
-            menus[3].update_dimensions(window_width, window_height)
-        if  game_state.current_menu == 1:
-            menus[1].update_dimensions(sidebar_width, window_height)
         elif event.type == pygame.MOUSEWHEEL:
             scroll_offset -= event.y * scroll_speed
             scroll_offset = max(0, min(scroll_offset, max_scroll)) 

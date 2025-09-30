@@ -11,7 +11,6 @@ This is an idle game inspired by Melvor Idle, it is my first main project. Coded
 -Temp Inventory
 -Scavenging 
 -A toggle to gather a group of resources
--Resizable Window
 
 # Project Structure
 The Project is organized into these main folders
