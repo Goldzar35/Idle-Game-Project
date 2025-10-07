@@ -6,7 +6,7 @@ from Entities.Button import Button
 from Entities.GameState import GameState
 
 # From Menus
-from Menus.Core.DefaultMenu import DefaultMenu
+from Menus.Core.DefaultMenu import *
 from Menus.Core.InventoryMenu import InventoryMenu
 from Menus.Core.ShopMenu import ShopMenu
 from Menus.Skills.ScavengingMenu import *
@@ -71,7 +71,7 @@ for i, name in enumerate(button_names):
 
 # Add other Menu's here
 menus = {
-    0: DefaultMenu(game_state.player),
+    0: DefaultMenu(game_state.player, sidebar_width, window_width, window_height),
     1: InventoryMenu(game_state.player, sidebar_width),
     2: ShopMenu(game_state.player),
     3: ScavengingMenu(game_state.player, game_state, sidebar_width, window_width, window_height),
@@ -104,6 +104,9 @@ while running:
         # For Scavenging
         if game_state.current_menu in menus and hasattr(menus[game_state.current_menu], "handle_scavenge_event"):
             menus[game_state.current_menu].handle_scavenge_event(event)
+
+        if game_state.current_menu in menus and hasattr(menus[game_state.current_menu], "handle_resize_box_event"):
+            menus[game_state.current_menu].handle_resize_box_event(event)
 
     # Update scavenging logic globally
     game_state.update_scavenging()
